@@ -24,4 +24,5 @@ logo após o select...
 
 Outras condições
 > WHERE Nome LIKE 'W%' //Nome começa com W
+
 > WHERE Nome LIKE '%W%' //Nome tem que ter W
