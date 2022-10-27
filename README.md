@@ -1,4 +1,7 @@
 # DIO-NET-SQL
+
+### Tabelas e tipos de dados
+
  Modulo de banco de dados relacionais em .NET
 - DDL - Definition
 - DML - Manipulation
@@ -143,4 +146,72 @@ Juntando tabelas
 > SELECT * FROM Clientes INNER JOIN Enderecos ON Clientes.Id = Enderecos.IdCliente
 
 
+### Constrains, funções e procedures
 
+- Constrains
+Regas que são seguidas para permitir uma inserção em uma tabela
+Alt + F1 no nome da tabela para ver as regras da mesma
+	
+	- NOT NULL
+		Valor não pode ser null
+
+	- UNIQUE
+		Garante que um valor de uma coluna seja unica na tabela
+		ADD UNIQUE(Nome)
+	- CHECK
+		Verifica determinada condição
+		> ADD CHECK(Genero = 'U' OR Genero = 'F')
+
+	- DEFAULT
+		Assume um valor padrão caso não se passe nenhum valor
+		> ADD DEFAULT GETDATE() FOR DataCadastro
+
+
+- Alterando uma constrain 
+```
+ALTER TABLE Produtos
+ADD CONSTRAINT NomeDaConstraint UNIQUE(Nome)
+```
+
+- Apagando uma Constraint
+Alt+F1 no nome da tabela -> Pega o constraint_name ->
+> DROP CONSTRAINT constraint_name
+
+- Stored Procedure
+Codigos sql que você pode salvar diretamente no banco de dados
+
+```
+CREATE PROCEDURE InserirNovoProduto 
+@Nome varchar(255),
+@Cor varchar(50),
+@Preco decimal,
+@Tamanho varchar(5),
+@Genero char(1)
+
+AS
+
+INSERT INTO Produtos (Nome, Cor, Preco, Tamanho, Genero)
+VALUES (@Nome, @Cor, @Preco, @Tamanho, @Genero)
+```
+
+```
+EXEC InserirNovoProduto
+'NOVO NOME',
+'AMARELO',
+23,
+'G',
+'U'
+```
+
+- Functions
+Codigos SQL que você pode salvar diretamente no banco de dados
+Tem que retornar um valor
+
+```
+CREATE FUNCTION CalcularDesconto(@Preco decimal(13,2), @Porcentagem int)
+RETURNS DECIMAL(13,2)
+
+BEGIN
+	RETURN	@Preco - @Preco / 100 * @Porcentagem
+END
+```
