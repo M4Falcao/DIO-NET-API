@@ -20,11 +20,11 @@ Como fazer:
 
 - Cria o contexto
 
-´´´
+```
 public AgendaContext(DbContextOptions<AgendaContext> options) : base(options) { } 
 
 public DbSet<Contato> Contatos { get; set; } 
-´´´
+```
 
 - Altera o appsetings.Dev.json
 ```
@@ -59,4 +59,5 @@ builder.Services.AddDbContext<AgendaContext>(options =>
 OBS:
 
 Put -> Tem q passar tudo
+
 Patch -> Atualização parcial, pode passar só uma informação
